@@ -1,5 +1,9 @@
 package shao.pi.biblioteca.repositories;
 
-public interface AlunoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import shao.pi.biblioteca.models.Aluno;
+
+public interface AlunoRepository extends JpaRepository<Aluno, Long> {
     
 }

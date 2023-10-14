@@ -1,5 +1,9 @@
 package shao.pi.biblioteca.repositories;
 
-public interface EmprestimoRepository {
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import shao.pi.biblioteca.models.Emprestimo;
+
+public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
     
 }
