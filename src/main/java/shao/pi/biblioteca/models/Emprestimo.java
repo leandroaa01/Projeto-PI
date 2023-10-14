@@ -10,6 +10,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.PrePersist;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Emprestimo {
@@ -20,10 +21,10 @@ public class Emprestimo {
     @NotBlank
     private String tituloLivro;
 
-    @NotBlank
+    @NotNull
     private Long matriculaAluno;
     
-    @NotBlank
+
     private String situacao;
     
 

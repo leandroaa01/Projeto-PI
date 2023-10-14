@@ -9,6 +9,6 @@ public class indexController {
     @RequestMapping("/")
     public String index() {
         System.out.println("Chamou o Controller!");
-        return "index";
+        return "redirect:/ShaoBibli";
     }
 }
