@@ -14,24 +14,17 @@ import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Aluno {
-
-    @Override
-    public String toString() {
-        return "Aluno [id=" + id + ", matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", dataNascimento="
-                + dataNascimento + ", endereco=" + endereco + "]";
-    }
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
+    @NotNull
     private Long matricula;
 
     @NotBlank
     private String nome;
 
-    @NotBlank
+    @NotNull
     private Long cpf;
 
     @NotNull
@@ -88,5 +81,9 @@ public class Aluno {
     public void setEndereco(String endereco) {
         this.endereco = endereco;
     }
-    
+     @Override
+    public String toString() {
+        return "Aluno [id=" + id + ", matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", dataNascimento="
+                + dataNascimento + ", endereco=" + endereco + "]";
+    }
 }

@@ -8,9 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 
 @Entity
 public class Emprestimo {
@@ -18,11 +17,11 @@ public class Emprestimo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String tituloLivro;
+     @ManyToOne
+    private Livro tituloLivro;
 
-    @NotNull
-    private Long matriculaAluno;
+    @ManyToOne
+    private Aluno matriculaAluno;
     
 
     private String situacao;
@@ -58,19 +57,19 @@ private long diferencaDias;
         this.id = id;
     }
 
-    public String getTituloLivro() {
+    public Livro getTituloLivro() {
         return tituloLivro;
     }
 
-    public void setTituloLivro(String tituloLivro) {
+    public void setTituloLivro(Livro tituloLivro) {
         this.tituloLivro = tituloLivro;
     }
 
-    public Long getMatriculaAluno() {
+    public Aluno getMatriculaAluno() {
         return matriculaAluno;
     }
 
-    public void setMatriculaAluno(Long matriculaAluno) {
+    public void setMatriculaAluno(  Aluno matriculaAluno) {
         this.matriculaAluno = matriculaAluno;
     }
 

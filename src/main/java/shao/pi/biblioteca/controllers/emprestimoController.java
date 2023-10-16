@@ -35,6 +35,7 @@ public class emprestimoController {
 		if(result.hasErrors()) {
 			return form(emprestimo);
 		}
+        
 		emprestimo.setSituacao("Empréstimo Ativo"); 
 		System.out.println(emprestimo);
 		emp.save(emprestimo);
