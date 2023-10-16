@@ -50,26 +50,18 @@ public class emprestimoController {
     for (Emprestimo emprestimo : emprestimos) {
         long diferencaEmDias = ChronoUnit.DAYS.between(emprestimo.getdEmprestimo(), dataAtual);
         emprestimo.setDiferencaDias(diferencaEmDias);
+         if(diferencaEmDias > 14 && !emprestimo.getSituacao().equals("Empréstimo Finalizado")) {
+            emprestimo.setSituacao("Empréstimo Atrasado");
+        }if(diferencaEmDias <= 14 && !emprestimo.getSituacao().equals("Empréstimo Finalizado")){
+           emprestimo.setSituacao("Empréstimo Ativo");  
+        }
+        emp.save(emprestimo);
     }
 		ModelAndView mv = new ModelAndView("emprestimos/listaE");
 		mv.addObject("emprestimos", emprestimos);
 
 		return mv;
 	}
-    
-    @PostMapping("/atualizarSituacao")
-    public String atualizarSituacao() {
-    List<Emprestimo> emprestimos = emp.findAll();
-    for (Emprestimo e : emprestimos) {
-        LocalDate dataAtual = LocalDate.now();
-        long diferencaDias = ChronoUnit.DAYS.between(e.getdEmprestimo(), dataAtual);
-        if(diferencaDias >= 14 && !e.getSituacao().equals("Empréstimo Finalizado")) {
-            e.setSituacao("Empréstimo Atrasado");
-        }
-        emp.save(e);
-    }
-    return "redirect:/ShaoBiblioteca";
-}
     @GetMapping("/{id}/finalizar")
     public String finalizarEmprestimo(@PathVariable Long id, RedirectAttributes attributes) {
         Optional<Emprestimo> opt = emp.findById(id);
