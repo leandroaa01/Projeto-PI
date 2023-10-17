@@ -19,7 +19,7 @@
         <div>
             <label>Título do Livro:</label>
             <input type="text" th:field="*{tituloLivro.titulo}" /> <!-- Atributo 'titulo' representa o título do livro -->
-            <p th:errors="*{tituloLivro.titulo}"></p>
+            <p style="color: red; font-weight: bolder;" th:errors="*{tituloLivro.titulo}"></p>
         </div>
         <div>
             <label>Matrícula:</label>
