@@ -12,24 +12,25 @@
     <div class="container">
     <h1>Criado um Empréstimo</h1>
     <p th:if="${mensagem}" th:text="${mensagem}"></p>
-        <form action="/ShaoBiblioteca" method="post" th:object="${emprestimo}">
-			<div>
-				<input type="hidden" th:field="*{id}" readonly="readonly">
-			</div>
-			<div>
-                <label>Título do Livro:</label> <input type="text" th:field="*{tituloLivro}" />
-                <p th:errors="*{tituloLivro}"></p>
-            </div>
-            <div>
-                <label>Matrícula:</label> <input type="text" th:field="*{matriculaAluno}" />
-                <p th:errors="*{matriculaAluno}"></p>
-            </div>
-            
-    <div>
-        <button  class="waves-effect waves-light btn-small" type="submit">Salvar</button>
-        <button  class="waves-effect waves-light btn-small" type="reset">Limpar</button>
-    </div>
-    </div>
+    <form action="/ShaoBiblioteca" method="post" th:object="${emprestimo}">
+        <div>
+            <input type="hidden" th:field="*{id}" readonly="readonly">
+        </div>
+        <div>
+            <label>Título do Livro:</label>
+            <input type="text" th:field="*{tituloLivro.titulo}" /> <!-- Atributo 'titulo' representa o título do livro -->
+            <p th:errors="*{tituloLivro.titulo}"></p>
+        </div>
+        <div>
+            <label>Matrícula:</label>
+            <input type="text" th:field="*{matriculaAluno.matricula}" /> <!-- Atributo 'matricula' representa a matrícula do aluno -->
+            <p style="color: red; font-weight: bolder;" th:errors="*{matriculaAluno.matricula}"></p>
+        </div>
+        <div>
+            <button class="waves-effect waves-light btn-small" type="submit">Salvar</button>
+            <button class="waves-effect waves-light btn-small" type="reset">Limpar</button>
+        </div>
     </form>
+    
 </body>
 </html>

@@ -16,7 +16,7 @@
         <br>
         <br>
          <h4>Lista de  Empréstimos</h4>
-     <p th:if="${mensagem}" th:text="${mensagem}"></p>
+     <p style="color: rgb(0, 51, 255); font-weight: bolder;" th:if="${mensagem}" th:text="${mensagem}"></p>
     <table class="highlight">
         <thead>
             <tr>
@@ -32,8 +32,8 @@
         <tbody>
             <tr th:each="e: ${emprestimos}">
                 <td th:text="${e.id}">1</td>
-                <td th:text="${e.tituloLivro}">João & Maria no Pé de feijão </a></td>
-                <td th:text="${e.matriculaAluno}">0000000000</td>
+                <td th:text="${e.tituloLivro.titulo}">João & Maria no Pé de Feijão </td>
+                <td th:text="${e.matriculaAluno.matricula}">0000000000</td>
                 <td th:text="${#temporals.format(e.dEmprestimo, 'dd/MM/yyyy')}">10/10/2023</td>
                 <td th:text="${#temporals.format(e.dDevolucao, 'dd/MM/yyyy')}">10/10/2023</td>
                 <td>

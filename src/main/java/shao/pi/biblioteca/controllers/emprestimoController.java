@@ -16,32 +16,62 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import jakarta.validation.Valid;
+import shao.pi.biblioteca.models.Aluno;
 import shao.pi.biblioteca.models.Emprestimo;
+import shao.pi.biblioteca.models.Livro;
+import shao.pi.biblioteca.repositories.AlunoRepository;
 import shao.pi.biblioteca.repositories.EmprestimoRepository;
+import shao.pi.biblioteca.repositories.LivroRepository;
 
 @Controller
 @RequestMapping("/ShaoBiblioteca")
 public class emprestimoController {
     @Autowired
     private EmprestimoRepository emp;
+     @Autowired
+    private LivroRepository liv;
+     @Autowired
+    private AlunoRepository alu;
     
     	@GetMapping("/form")
 	public String form(Emprestimo emprestimo) {
 		return "emprestimos/formEmprestimos";
 	}
-	@PostMapping
-	public String salvar(@Valid Emprestimo emprestimo, BindingResult result, RedirectAttributes attributes) {
+@PostMapping
+public String salvar(@Valid Emprestimo emprestimo, BindingResult result, RedirectAttributes attributes) {
 
-		if(result.hasErrors()) {
-			return form(emprestimo);
-		}
-        
-		emprestimo.setSituacao("Empréstimo Ativo"); 
-		System.out.println(emprestimo);
-		emp.save(emprestimo);
-		attributes.addFlashAttribute("mensagem", "Empréstimo salvo com sucesso!");
-		return  "redirect:/ShaoBiblioteca";
-	}
+    if (result.hasErrors()) {
+        return form(emprestimo);
+    }
+
+    Aluno aluno = alu.findByMatricula(emprestimo.getMatriculaAluno().getMatricula());
+    Livro livro = liv.findByTitulo(emprestimo.getTituloLivro().getTitulo());
+
+    if (aluno == null) {
+        result.rejectValue("matriculaAluno.matricula", "error.matriculaAluno", "Erro: Aluno não encontrado");
+        return form(emprestimo);
+    }
+
+    if (livro == null) {
+        result.rejectValue("tituloLivro.titulo", "error.tituloLivro", "Erro: Livro não encontrado");
+        return form(emprestimo);
+    }
+    int emprestimosAtivos = emp.countByMatriculaAlunoAndSituacao(aluno, "Empréstimo Ativo");
+    if (emprestimosAtivos >= 3) {
+        result.rejectValue("matriculaAluno.matricula", "error.matriculaAluno", "Erro: O aluno já possui 3 empréstimos ativos.");
+        return form(emprestimo);
+    }
+    System.out.println(livro);
+    System.out.println(aluno);
+    emprestimo.setMatriculaAluno(aluno);
+    emprestimo.setTituloLivro(livro);
+    emprestimo.setSituacao("Empréstimo Ativo");
+
+    emp.save(emprestimo);
+    attributes.addFlashAttribute("mensagem", "Empréstimo salvo com sucesso!");
+    return "redirect:/ShaoBiblioteca";
+}
+
     @GetMapping
 	public ModelAndView listarEmprestimo() {
 		List<Emprestimo> emprestimos = emp.findAll();
