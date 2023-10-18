@@ -16,7 +16,7 @@
         <br>
         <br>
          <h4>Lista de  Empréstimos</h4>
-     <p style="color: rgb(0, 51, 255); font-weight: bolder;" th:if="${mensagem}" th:text="${mensagem}"></p>
+     <p style="color: rgb(77, 255, 0); font-weight: bolder;" th:if="${mensagem}" th:text="${mensagem}"></p>
     <table class="highlight">
         <thead>
             <tr>
@@ -25,8 +25,7 @@
               <th>Matricula do Aluno</th>
               <th>Data do Empréstimo</th>
               <th>Data da Devolução</th>  
-              <th>Situação do Empréstimo</th>
-              <th></th>
+              <th>Situação da Data da Devolução</th>
             </tr>
         </thead>
         <tbody>
@@ -43,7 +42,6 @@
                 </td>
                 <td>
                     <a style="color: rgb(9, 253, 9);" th:href="@{/ShaoBiblioteca/{id}/finalizar(id=${e.id})}"><i class="material-icons">check</i></a>
-                    <a style="color: rgb(253, 5, 5);" th:href="@{/ShaoBiblioteca/{id}/cancelar(id=${e.id})}"><i class="material-icons">close</i></a>
                 </td>
             </tr>
         </tbody> 

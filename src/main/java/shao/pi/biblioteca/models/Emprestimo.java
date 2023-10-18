@@ -36,7 +36,6 @@ public class Emprestimo {
     @PrePersist
     public void prePersist() {
     this.dEmprestimo = LocalDate.now();
-    this.dDevolucao = this.dEmprestimo.plusDays(14);
 }
 private long diferencaDias;
 

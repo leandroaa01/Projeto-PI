@@ -46,16 +46,16 @@ public String salvar(@Valid Emprestimo emprestimo, BindingResult result, Redirec
 
     Aluno aluno = alu.findByMatricula(emprestimo.getMatriculaAluno().getMatricula());
     Livro livro = liv.findByTitulo(emprestimo.getTituloLivro().getTitulo());
-
+    if (livro == null) {
+        result.rejectValue("tituloLivro.titulo", "error.tituloLivro", "Erro: Livro não encontrado");
+        return form(emprestimo);
+    }
     if (aluno == null) {
         result.rejectValue("matriculaAluno.matricula", "error.matriculaAluno", "Erro: Aluno não encontrado");
         return form(emprestimo);
     }
 
-    if (livro == null) {
-        result.rejectValue("tituloLivro.titulo", "error.tituloLivro", "Erro: Livro não encontrado");
-        return form(emprestimo);
-    }
+   
     int emprestimosAtivos = emp.countByMatriculaAlunoAndSituacao(aluno, "Empréstimo Ativo");
     if (emprestimosAtivos >= 3) {
         result.rejectValue("matriculaAluno.matricula", "error.matriculaAluno", "Erro: O aluno já possui 3 empréstimos ativos.");
@@ -81,7 +81,7 @@ public String salvar(@Valid Emprestimo emprestimo, BindingResult result, Redirec
     for (Emprestimo emprestimo : emprestimos) {
         long diferencaEmDias = ChronoUnit.DAYS.between(emprestimo.getdEmprestimo(), dataAtual);
         emprestimo.setDiferencaDias(diferencaEmDias);
-         if(diferencaEmDias > 14 && !emprestimo.getSituacao().equals("Empréstimo Finalizado")) {
+         if(diferencaEmDias > 14 && emprestimo.getdDevolucao() == null) {
             emprestimo.setSituacao("Empréstimo Atrasado");
         }if(diferencaEmDias <= 14 && !emprestimo.getSituacao().equals("Empréstimo Finalizado")){
            emprestimo.setSituacao("Empréstimo Ativo");  
@@ -100,7 +100,9 @@ public String salvar(@Valid Emprestimo emprestimo, BindingResult result, Redirec
             attributes.addFlashAttribute("mensagem", "Empréstimo não encontrado.");
             return "redirect:/ShaoBiblioteca";
         }
+         LocalDate dataAtual = LocalDate.now();
         Emprestimo emprestimo = opt.get();
+           emprestimo.setdDevolucao(dataAtual);
             emprestimo.setSituacao("Empréstimo Finalizado");
             emp.save(emprestimo);
             attributes.addFlashAttribute("mensagem", "Empréstimo finalizado com sucesso!");
