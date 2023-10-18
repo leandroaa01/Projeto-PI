@@ -22,7 +22,12 @@ public class Livro {
 
     @NotBlank
     private String autor;
+
+    @NotBlank
+    private String editora;
     
+   
+
     @NotNull
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
     private  LocalDate anoPublicado; 
@@ -30,12 +35,20 @@ public class Livro {
     @NotBlank
     private String edicao;
 
+   
     @Override
     public String toString() {
-        return "Livro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", anoPublicado=" + anoPublicado
-                + ", edicao=" + edicao + "]";
+        return "Livro [id=" + id + ", titulo=" + titulo + ", autor=" + autor + ", editora=" + editora
+                + ", anoPublicado=" + anoPublicado + ", edicao=" + edicao + "]";
     }
 
+    public String getEditora() {
+        return editora;
+    }
+
+    public void setEditora(String editora) {
+        this.editora = editora;
+    }
     public Long getId() {
         return id;
     }

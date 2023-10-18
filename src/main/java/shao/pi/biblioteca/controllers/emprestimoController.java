@@ -32,13 +32,14 @@ public class emprestimoController {
     private LivroRepository liv;
      @Autowired
     private AlunoRepository alu;
+
     
     	@GetMapping("/form")
 	public String form(Emprestimo emprestimo) {
 		return "emprestimos/formEmprestimos";
 	}
 @PostMapping
-public String salvar(@Valid Emprestimo emprestimo, BindingResult result, RedirectAttributes attributes) {
+public String salvarEmprestimo(@Valid Emprestimo emprestimo, BindingResult result, RedirectAttributes attributes) {
 
     if (result.hasErrors()) {
         return form(emprestimo);
@@ -109,15 +110,6 @@ public String salvar(@Valid Emprestimo emprestimo, BindingResult result, Redirec
         return "redirect:/ShaoBiblioteca";
     }
 
-    @GetMapping("/{id}/cancelar")
-    public String cancelarEmprestimo(@PathVariable Long id, RedirectAttributes attributes) {
-        Optional<Emprestimo> opt = emp.findById(id);
-        if(!opt.isEmpty()){
-            Emprestimo emprestimo = opt.get();
-            emp.delete(emprestimo);
-            attributes.addFlashAttribute("mensagem", "Empréstimo cancelado com sucesso!");
-        }
-         return "redirect:/ShaoBiblioteca";
-    }
+   
 
 }

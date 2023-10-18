@@ -86,6 +86,4 @@ public class Aluno {
         return "Aluno [id=" + id + ", matricula=" + matricula + ", nome=" + nome + ", cpf=" + cpf + ", dataNascimento="
                 + dataNascimento + ", endereco=" + endereco + "]";
     }
-
-    
 }
