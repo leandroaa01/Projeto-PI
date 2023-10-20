@@ -8,8 +8,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
-import jakarta.validation.constraints.NotBlank;
 
 @Entity
 public class Emprestimo {
@@ -17,13 +17,13 @@ public class Emprestimo {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank
-    private String tituloLivro;
+     @ManyToOne
+    private Livro tituloLivro;
 
-    @NotBlank
-    private Long matriculaAluno;
+    @ManyToOne
+    private Aluno matriculaAluno;
     
-    @NotBlank
+
     private String situacao;
     
 
@@ -36,8 +36,17 @@ public class Emprestimo {
     @PrePersist
     public void prePersist() {
     this.dEmprestimo = LocalDate.now();
-    this.dDevolucao = this.dEmprestimo.plusDays(14);
 }
+private long diferencaDias;
+
+
+    public long getDiferencaDias() {
+        return diferencaDias;
+    }
+
+    public void setDiferencaDias(long diferencaDias) {
+        this.diferencaDias = diferencaDias;
+    }
 
     public Long getId() {
         return id;
@@ -47,19 +56,19 @@ public class Emprestimo {
         this.id = id;
     }
 
-    public String getTituloLivro() {
+    public Livro getTituloLivro() {
         return tituloLivro;
     }
 
-    public void setTituloLivro(String tituloLivro) {
+    public void setTituloLivro(Livro tituloLivro) {
         this.tituloLivro = tituloLivro;
     }
 
-    public Long getMatriculaAluno() {
+    public Aluno getMatriculaAluno() {
         return matriculaAluno;
     }
 
-    public void setMatriculaAluno(Long matriculaAluno) {
+    public void setMatriculaAluno(  Aluno matriculaAluno) {
         this.matriculaAluno = matriculaAluno;
     }
 

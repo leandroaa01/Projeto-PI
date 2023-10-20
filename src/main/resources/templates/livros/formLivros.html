@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="shortcut icon" href="https://suap.ifrn.edu.br/static/comum/img/favicon.png?v=fb93eb95141192c586d0251d4beb9dd5" />
+    <title>Aluno</title>
+</head>
+<body>
+    <div th:replace="~{menu :: menu}"></div>
+    <div class="container">
+    <h1>Criando um Aluno</h1>
+    <p th:if="${mensagem}" th:text="${mensagem}"></p>
+    <form action="/ShaoBiblioteca/livro" method="post" th:object="${livro}">
+        <div>
+            <input type="hidden" th:field="*{id}" readonly="readonly">
+        </div>
+        <div>
+            <label>Título:</label>
+            <input type="text" th:field="*{titulo}" />
+            <p style="color: red; font-weight: bolder;" th:errors="*{titulo}"></p>
+        </div>
+        <div>
+            <label>Autor:</label>
+            <input type="text" th:field="*{autor}" /> 
+            <p style="color: red; font-weight: bolder;" th:errors="*{autor}"></p>
+        </div>
+        <div>
+            <label>Editora:</label>
+            <input type="text" th:field="*{editora}" /> 
+            <p style="color: red; font-weight: bolder;" th:errors="*{editora}"></p>
+        </div>
+        <div>
+            <label>Ano de Publicação:</label>
+            <input type="date" th:field="*{anoPublicado}" />
+            <p style="color: red; font-weight: bolder;" th:errors="*{anoPublicado}"></p>
+        </div>
+        <div>
+            <label>Edição:</label>
+            <input type="text" th:field="*{edicao}" />
+            <p style="color: red; font-weight: bolder;" th:errors="*{edicao}"></p>
+        </div>
+        <div>
+            <button class="waves-effect waves-light btn-small" type="submit">Salvar</button>
+            <button class="waves-effect waves-light btn-small" type="reset">Limpar</button>
+        </div>
+    </form>
+    
+</body>
+</html>

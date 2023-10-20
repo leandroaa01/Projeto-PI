@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="br"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="https://suap.ifrn.edu.br/static/comum/img/favicon.png?v=fb93eb95141192c586d0251d4beb9dd5" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Shao Biblioteca</title>
+</head>
+<body>
+    <div th:replace="~{menuL :: menuL}"></div>
+    <div class="container">
+        <h1> Hello,Shao!&#9994;&#127995;</h1>
+         <h5> Bem-vindo a nossa Biblioteca.</h5>
+        <br>
+        <br>
+         <h4>Lista de  Livros</h4>
+     <p style="color: rgb(77, 255, 0); font-weight: bolder;" th:if="${mensagem}" th:text="${mensagem}"></p>
+    <p style="color: rgb(255, 0, 0); font-weight: bolder;" th:if="${erro}" th:text="${erro}"></p> 
+    <table class="highlight">
+        <thead>
+            <tr>
+              <th>id</th>
+              <th>Título do Livro</th>
+              <th>Autor do Livro</th>
+              <th>Editora do Livro</th>
+              <th>Data de Publicação</th>  
+              <th>Edição do Livro</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="l: ${livros}">
+                <td th:text="${l.id}">1</td>
+                <td th:text="${l.titulo}">João & Maria no Pé de Feijão </td>
+                <td th:text="${l.autor}">0000000000</td>
+                <td th:text="${l.editora}">10/10/2023</td>
+                <td th:text="${#temporals.format(l.anoPublicado, 'dd/MM/yyyy')}">10/10/2023</td>
+                <td th:text="${l.edicao}">10/10/2023</td>
+
+                <td>
+                    <a style="color: rgb(12, 12, 12); size: 10;" th:href="@{/ShaoBiblioteca/{id}/editLivro(id=${l.id})}" ><i class="material-icons">edit</i></a>
+                    <a style="color: rgb(253, 9, 9);" th:href="@{/ShaoBiblioteca/{id}/deleteLivro(id=${l.id})}"><i class="material-icons">close</i></a>
+                    
+                </td>
+            </tr>
+        </tbody> 
+      
+    </table>
+   
+
+     </div>
+</body>
+</html>

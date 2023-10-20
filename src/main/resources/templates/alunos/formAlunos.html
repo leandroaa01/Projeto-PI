@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="pt-br"  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="shortcut icon" href="https://suap.ifrn.edu.br/static/comum/img/favicon.png?v=fb93eb95141192c586d0251d4beb9dd5" />
+    <title>Aluno</title>
+</head>
+<body>
+    <div th:replace="~{menu :: menu}"></div>
+    <div class="container">
+    <h1>Criando um Aluno</h1>
+    <p th:if="${mensagem}" th:text="${mensagem}"></p>
+    <form action="/ShaoBiblioteca/aluno" method="post" th:object="${aluno}">
+        <div>
+            <input type="hidden" th:field="*{id}" readonly="readonly">
+        </div>
+        <div>
+            <label>Matricula:</label>
+            <input type="number" th:field="*{matricula}" /> <!-- Atributo 'titulo' representa o título do livro -->
+            <p style="color: red; font-weight: bolder;" th:errors="*{matricula}"></p>
+        </div>
+        <div>
+            <label>Nome:</label>
+            <input type="text" th:field="*{nome}" /> <!-- Atributo 'matricula' representa a matrícula do aluno -->
+            <p style="color: red; font-weight: bolder;" th:errors="*{nome}"></p>
+        </div>
+        <div>
+            <label>CPF:</label>
+            <input type="number" th:field="*{cpf}" /> <!-- Atributo 'matricula' representa a matrícula do aluno -->
+            <p style="color: red; font-weight: bolder;" th:errors="*{cpf}"></p>
+        </div>
+        <div>
+            <label>Data de Nascimento:</label>
+            <input type="date" th:field="*{dataNascimento}" /> <!-- Atributo 'matricula' representa a matrícula do aluno -->
+            <p style="color: red; font-weight: bolder;" th:errors="*{dataNascimento}"></p>
+        </div>
+        <div>
+            <label>Endereço:</label>
+            <input type="text" th:field="*{endereco}" /> <!-- Atributo 'matricula' representa a matrícula do aluno -->
+            <p style="color: red; font-weight: bolder;" th:errors="*{endereco}"></p>
+        </div>
+        <div>
+            <button class="waves-effect waves-light btn-small" type="submit">Salvar</button>
+            <button class="waves-effect waves-light btn-small" type="reset">Limpar</button>
+        </div>
+    </form>
+    
+</body>
+</html>
