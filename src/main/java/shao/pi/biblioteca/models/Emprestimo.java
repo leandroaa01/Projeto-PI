@@ -39,6 +39,16 @@ public class Emprestimo {
     this.dEmprestimo = LocalDate.now();
     this.dDevolucao = this.dEmprestimo.plusDays(14);
 }
+private long diferencaDias;
+
+
+    public long getDiferencaDias() {
+        return diferencaDias;
+    }
+
+    public void setDiferencaDias(long diferencaDias) {
+        this.diferencaDias = diferencaDias;
+    }
 
     public Long getId() {
         return id;

@@ -11,7 +11,7 @@
     <div th:replace="~{menu :: menu}"></div>
     <div class="container">
     <h1>Criado um Empréstimo</h1>
-        <form action="/ShaoBibli" method="post" th:object="${emprestimo}">
+        <form action="/ShaoBiblioteca" method="post" th:object="${emprestimo}">
 			<div>
 				<input type="hidden" th:field="*{id}" readonly="readonly">
 			</div>
