@@ -1,6 +1,7 @@
 package shao.pi.biblioteca.controllers;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
@@ -101,8 +102,15 @@ public String salvarEmprestimo(@Valid Emprestimo emprestimo, BindingResult resul
             attributes.addFlashAttribute("mensagem", "Empréstimo não encontrado.");
             return "redirect:/ShaoBiblioteca";
         }
+       
          LocalDate dataAtual = LocalDate.now();
-        Emprestimo emprestimo = opt.get();
+        Emprestimo emprestimo = opt.get(); 
+        if(emprestimo.getSituacao().equals("Empréstimo Finalizado")){
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+            String dataFormatada = emprestimo.getdDevolucao().format(formatter);
+        attributes.addFlashAttribute("mensagemErro", "Empréstimo já foi finalizado na data " + dataFormatada);
+        return "redirect:/ShaoBiblioteca";
+        }
            emprestimo.setdDevolucao(dataAtual);
             emprestimo.setSituacao("Empréstimo Finalizado");
             emp.save(emprestimo);
